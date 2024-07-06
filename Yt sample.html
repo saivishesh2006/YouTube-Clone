@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            YT Clone
+        </title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+            .sidebar{
+    position: fixed;
+    background-color: white;
+    top:60px;
+    bottom:0px;
+    left:0px;
+    width:90px;
+    z-index: 200;
+    padding-top: 5px;
+}
+
+.siderbarlink{
+    height: 108px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.siderbarlink:hover{
+    background-color: lightgray;
+    cursor: pointer;
+}
+.siderbarlink img{
+    height: 30px;
+    margin-bottom: 5px;
+}
+
+.siderbarlink div{
+    font-family: Roboto,Arial;
+    font-weight: 700;
+    font-size: 12px;
+}
+input{
+    font-size: 26px;
+}
+
+.header{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position:fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height:60px;
+    background-color: white;
+    border-bottom-width:1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(219, 217, 217);
+    z-index:100
+}
+
+.leftpart{
+    width:330px;
+    display: flex;
+    align-items: center;
+}
+
+.menu{
+    height: 25px;
+    margin-right: 55px;
+    margin-left: 33px;
+}
+
+.ytlogo{
+    height: 25px;
+}
+
+.middlepart{
+    flex:1;
+    align-items: center;
+    margin-left: 90px;
+    margin-right: 60px;
+    max-width: 800px;
+    display:flex;
+    align-items: center;
+}
+
+.sbutton{
+    height:43.5px;
+    width: 60px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: rgb(241, 240, 240);
+    border-color: rgb(192,192,192);
+    border-width: 1px;
+    border-style: solid;
+    
+}
+
+.sbutton,.vbutton,.ucontain,.acontain,.notificationsdiv,.mcontain,.mecontain{
+    position: relative;
+    cursor: pointer;
+}
+
+.sbutton .tooltip,
+.vbutton .tooltip,
+.ucontain .tooltip,
+.acontain .tooltip,
+.notificationsdiv .tooltip,
+.mecontain .tooltip{
+    position: absolute;
+    background-color:rgb(72, 72, 72);
+    color: white;
+    font-size: 17px;
+    bottom: -30px;
+    right:-10px;
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.vbutton .tooltip{
+   bottom: -45px;
+}
+
+.mecontain .tooltip{
+    bottom: -15px;
+    left: 30px;
+    right:35px;
+}
+
+.sbutton:hover .tooltip,
+.vbutton:hover .tooltip,
+.ucontain:hover .tooltip,
+.acontain:hover .tooltip,
+.notificationsdiv:hover .tooltip,
+.mecontain:hover .tooltip{
+    opacity: 1;
+}
+.simage{
+    height: 28px;
+}
+
+.vbutton {
+    height: 50px;
+    width: 50px; 
+    background-color: rgb(248, 248, 248);
+    border-radius: 50%; 
+    border-style: solid;
+    border-color: white;
+    margin-left: 20px;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+}
+
+.vimage {
+    height: 33px; }
+
+.searchbar, .sbutton {
+     
+    margin: 0;
+    padding: 0;
+    border-width: 1px; 
+    border-style: solid;
+    border-color: rgb(192,192,192); 
+}
+
+.searchbar {
+    height:43px;
+    flex: 1;
+    border-radius: 5px 0 0 5px; 
+    box-shadow: inset 1px 2px 2px rgba(0,0,0,0.15);
+    margin-right: -1px;
+    width:0;
+}
+
+
+.rightpart{
+    width:330px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    font-family: Roboto,Arial;
+}
+
+.upload,.apps,.notifications{
+height: 40px;
+}
+
+.notificationsdiv{
+    position: relative;
+}
+
+.nicon{
+    position: absolute;
+    top:0px;
+    right:0px;
+    color:white;
+    font-family: Roboto,Arial;
+    background-color: rgb(203, 2, 2);
+    font-size: 12px;
+    height: 20px;
+    width:20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mychannel{
+    height:50px;
+    width:50px;
+    border-radius: 50%;
+}.videogrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 25px;
+    row-gap: 30px;
+}
+
+.thumbnailbox{
+    margin-bottom: 10px;
+    height: 225px;
+    position: relative;
+}
+
+.thumbnail{
+    width: 100%;
+    height: 100%;
+}
+
+.time{
+    position: absolute;
+    right:10px;
+    bottom:10px;
+    color: white;
+    background-color: black;
+    font-family: Roboto,Arial;
+    font-weight:500;
+    font-size: 15px;
+    border-radius: 5px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.infogrid{
+    display: grid;
+    grid-template-columns: 80px 1fr;
+}
+
+.pfp{
+    width: 43px;
+    height: 43px;
+    border-radius: 30px;         
+}
+
+.Title{
+    font-size: 25px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.Channel, .Stats{
+    font-size: 16px;
+    color: rgb(96, 96, 96);
+}
+
+.Preview{
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+ /* Media Queries */
+ @media (max-width: 1200px) {
+    .videogrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 800px) {
+    .videogrid {
+        grid-template-columns: 1fr;
+    }
+}p{
+    font-family: Roboto,Arial;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+body{
+    margin-left:35px;
+    margin-right: 40px;
+    margin-top: 5px;
+}
+        </style>
+    </head>
+    <body style=" height: 1200px;
+                  padding-top:90px;
+                  background-color: rgb(231, 229, 229);
+                  padding-left: 105px;">
+        <div class="header">
+            <div class="leftpart">
+                <div class="mecontain">
+                    <img class="menu" src="icons/hamburger-menu.svg">
+                    <div class="tooltip">
+                        menu
+                    </div>
+                </div>
+                <img class="ytlogo" src="icons/youtube-logo.svg">
+            </div>
+            <div class="middlepart">
+                <input class="searchbar" type="text" placeholder="Search">
+                <button class="sbutton">
+                    <img class="simage" src="icons/search.svg">
+                    <div class="tooltip">
+                        search
+                    </div>
+                </button>
+                <button class="vbutton">
+                    <img class="vimage" src="icons/voice-search-icon.svg">
+                    <div class="tooltip">
+                        voice search
+                    </div>
+                </button>
+            </div>
+            <div class="rightpart">
+                <div class="ucontain">
+                    <img class="upload" src="icons/upload.svg">
+                    <div class="tooltip">
+                        create
+                    </div>
+                </div>
+                <div class="acontain">
+                    <img class="apps" src="icons/youtube-apps.svg">
+                    <div class="tooltip">
+                        apps
+                    </div>
+                </div>
+                
+                <div class="notificationsdiv">
+                    <img class="notifications" src="icons/notifications.svg">
+                    <div class="nicon">
+                        9+
+                    </div>
+                    <div class="tooltip">
+                        notifications
+                    </div>
+                </div>
+                <div class="mcontain">
+                    <img class="mychannel" src="Thumbnails/my channel picture.jpg">
+                </div> 
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="siderbarlink">
+                <img src="icons/home.svg" class="home">
+                <div>Home</div>
+            </div>
+            <div class="siderbarlink">
+                <img src="icons/explore.svg" class="explore">
+                <div>Explore</div>
+            </div>
+            <div class="siderbarlink">
+                <img src="icons/subscriptions.svg" class="subscriptions">
+                <div>Subscriptions</div>
+            </div>
+            <div class="siderbarlink">
+                <img src="icons/originals.svg" class="originals">
+                <div>Originals</div>
+            </div>
+            <div class="siderbarlink">
+                <img src="icons/youtube-music.svg" class="ytmusic">
+                <div>YouTube Music</div>
+            </div>
+            <div class="siderbarlink">
+                <img src="icons/library.svg" class="library">
+                <div>Library</div>
+            </div>
+        </div>
+
+        <div class="videogrid">
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/1329444.jpg">
+                    <div class="time">
+                        8:05
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/medium-kid-luffy-monkey-d-luffy-one-piece-anime-hd-matte-finish-original-imagaybn3qgbwufb.webp">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Strawhats</p>
+                        <p class="Channel">One piece</p>
+                        <p class="Stats">3.4M Views . 6 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/wallpaperflare.com_wallpaper (2).jpg">
+                    <div class="time">
+                        14:30
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/channel2'.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Wolf</p>
+                        <p class="Channel">Scenery</p>
+                        <p class="Stats">8.9M Views . 11 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/wallpaperflare.com_wallpaper.jpg">
+                    <div class="time">
+                        6:19
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/medium-kid-luffy-monkey-d-luffy-one-piece-anime-hd-matte-finish-original-imagaybn3qgbwufb.webp">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Thousand Sunny</p>
+                        <p class="Channel">One piece</p>
+                        <p class="Stats">3.4M Views . 6 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/wallpaperflare.com_wallpaper (1).jpg">
+                    <div class="time">
+                        19:06
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/channel2'.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Swords</p>
+                        <p class="Channel">Scenery</p>
+                        <p class="Stats">1.8M Views . 8 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/split-images-of-kuma-luffy-lucci-one-piece.avif">
+                    <div class="time">
+                        6:09
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/medium-kid-luffy-monkey-d-luffy-one-piece-anime-hd-matte-finish-original-imagaybn3qgbwufb.webp">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Egghead Island</p>
+                        <p class="Channel">One piece</p>
+                        <p class="Stats">8.4M Views . 6 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/beautiful-nature-scenery-free-photo.webp">
+                    <div class="time">
+                        16:45
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/channel2'.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">River</p>
+                        <p class="Channel">Scenery</p>
+                        <p class="Stats">6.9M Views . 6 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/Kalki2898AD.webp">
+                    <div class="time">
+                        15:45
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/vj movies.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Kalki2898AD Poster</p>
+                        <p class="Channel">Vijayanthi Movies</p>
+                        <p class="Stats">18.4M Views . 2 days ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/gojo v sukuna.jpg">
+                    <div class="time">
+                        25:18
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/jjk.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Gojo vs Sukuna full fight animated</p>
+                        <p class="Channel">Jujutsu Kaisen</p>
+                        <p class="Stats">9.8M Views . 3 months ago</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="Preview">
+                <div class="thumbnailbox">
+                    <img class="thumbnail" src="Thumbnails/cherryblossom.webp">
+                    <div class="time">
+                        3:00
+                    </div>
+                </div>
+
+                <div class="infogrid">
+                    <div class="pfpbox">
+                        <img class="pfp" src="Thumbnails/channel2'.jpg">
+                    </div>
+
+                    <div class="statsbox">
+                        <p class="Title">Beautiful Cherry Blossom scenery</p>
+                        <p class="Channel">Scenery</p>
+                        <p class="Stats">36.3M Views . 9 months ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
